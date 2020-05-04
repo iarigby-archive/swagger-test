@@ -1,0 +1,140 @@
+{
+	"basePath": "/",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"User": {
+			"properties": {
+				"id": {
+					"type": "number",
+					"format": "double"
+				},
+				"email": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string",
+					"enum": [
+						"Happy",
+						"Sad"
+					],
+					"x-nullable": false
+				},
+				"phoneNumbers": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				}
+			},
+			"required": [
+				"id",
+				"email",
+				"name",
+				"phoneNumbers"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"Pick_User.email-or-name-or-phoneNumbers_": {
+			"properties": {
+				"email": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"phoneNumbers": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				}
+			},
+			"required": [
+				"email",
+				"name",
+				"phoneNumbers"
+			],
+			"type": "object",
+			"description": "From T, pick a set of properties whose keys are in the union K"
+		},
+		"UserCreationParams": {
+			"$ref": "#/definitions/Pick_User.email-or-name-or-phoneNumbers_"
+		}
+	},
+	"info": {
+		"title": "swagger-test",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		}
+	},
+	"paths": {
+		"/users/{userId}": {
+			"get": {
+				"operationId": "GetUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					},
+					{
+						"in": "query",
+						"name": "name",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/users": {
+			"post": {
+				"operationId": "CreateUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"201": {
+						"description": "Created"
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "requestBody",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UserCreationParams"
+						}
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {}
+}

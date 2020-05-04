@@ -1,0 +1,24 @@
+{
+  "name": "swagger-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+ 	"compile": "tsc src/app.ts --outDir build --experimentalDecorators --esModuleInterop",
+	"build": "tsoa routes && yarn compile",
+	"api": "tsoa spec && build/swagger.json --out types.d.ts && node codegen.js > index.ts"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dtsgen": "^0.0.5",
+    "express": "^4.17.1",
+    "swagger-typescript-codegen": "^3.0.5",
+    "tsoa": "^3.0.8"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.6",
+    "@types/node": "^13.13.4",
+    "typescript": "^3.8.3"
+  }
+}
